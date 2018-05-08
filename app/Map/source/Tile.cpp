@@ -24,6 +24,8 @@ void Tile::destroyWall()
 
 void Tile::placePoints()
 {
+    if(not isPassable())
+        throw PlacingPointsOnWallTileException{};
     _hasPoints = true;
 }
 

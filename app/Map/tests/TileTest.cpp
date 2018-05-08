@@ -31,3 +31,12 @@ TEST_F(TileTest, CheckThatAfterPlacingPointsTileHasPointsAndAfterTakingPointsTil
     tileObjectUnderTest.takePoints();
     EXPECT_FALSE(tileObjectUnderTest.hasPoints());
 }
+
+TEST_F(TileTest, CheckThatPointsWontBePlacedWhenTileIsUnpassable)
+{
+    tileObjectUnderTest.buildWall();
+    EXPECT_FALSE(tileObjectUnderTest.hasPoints());
+
+    EXPECT_THROW(tileObjectUnderTest.placePoints(), PlacingPointsOnWallTileException);
+    EXPECT_FALSE(tileObjectUnderTest.hasPoints());
+}

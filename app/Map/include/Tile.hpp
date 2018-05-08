@@ -18,3 +18,11 @@ private:
     bool _isPassable = true;
     bool _hasPoints = false;
 };
+
+class TileException
+{
+};
+
+class PlacingPointsOnWallTileException : public TileException
+{
+};
