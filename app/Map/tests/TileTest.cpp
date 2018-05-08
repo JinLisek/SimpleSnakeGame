@@ -2,8 +2,32 @@
 
 #include "Tile.hpp"
 
-TEST(TileTest, checkThatTileExists)
+class TileTest : public ::testing::Test
 {
-    Tile tile(0);
-    ASSERT_TRUE(tile.isEmpty());
+public:
+    Tile tileObjectUnderTest;
+};
+
+TEST_F(TileTest, CheckThatFileIsPassableAndHasNoPointsByDefault)
+{
+    EXPECT_TRUE(tileObjectUnderTest.isPassable());
+    EXPECT_FALSE(tileObjectUnderTest.hasPoints());
+}
+
+TEST_F(TileTest, CheckThatAfterBuildingWallItsUnpassableAndAfterDestroyingTheWallTileIsPassableAgain)
+{
+    tileObjectUnderTest.buildWall();
+    EXPECT_FALSE(tileObjectUnderTest.isPassable());
+
+    tileObjectUnderTest.destroyWall();
+    EXPECT_TRUE(tileObjectUnderTest.isPassable());
+}
+
+TEST_F(TileTest, CheckThatAfterPlacingPointsTileHasPointsAndAfterTakingPointsTileNoLongerHasPoints)
+{
+    tileObjectUnderTest.placePoints();
+    EXPECT_TRUE(tileObjectUnderTest.hasPoints());
+
+    tileObjectUnderTest.takePoints();
+    EXPECT_FALSE(tileObjectUnderTest.hasPoints());
 }
