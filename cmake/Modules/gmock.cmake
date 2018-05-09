@@ -22,7 +22,7 @@ include_directories(SYSTEM ${GTEST_DIR}/googletest/include
 # will be named <target>.
 function(add_gmock_test target)
     add_executable(${target} ${ARGN})
-    target_link_libraries(${target} gmock_main)
+    target_link_libraries(${target} PUBLIC gmock_main)
 
     add_test(${target} ${target})
 

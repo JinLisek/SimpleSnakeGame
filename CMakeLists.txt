@@ -29,6 +29,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(app)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_STANDARD 14)
 
 set(CONFIGURED_AT_LEAST_ONCE TRUE CACHE INTERNAL
     "A flag showing that CMake has configured at least once.")

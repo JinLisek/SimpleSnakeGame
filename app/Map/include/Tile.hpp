@@ -23,6 +23,6 @@ class TileException
 {
 };
 
-class PlacingPointsOnWallTileException : public TileException
+class WallAndPointsOnSameTileException : public TileException
 {
 };

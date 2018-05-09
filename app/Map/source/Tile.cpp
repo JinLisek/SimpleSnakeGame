@@ -14,6 +14,8 @@ bool Tile::hasPoints()
 
 void Tile::buildWall()
 {
+    if(hasPoints())
+        throw WallAndPointsOnSameTileException {};
     _isPassable = false;
 }
 
@@ -25,7 +27,8 @@ void Tile::destroyWall()
 void Tile::placePoints()
 {
     if(not isPassable())
-        throw PlacingPointsOnWallTileException{};
+        throw WallAndPointsOnSameTileException {};
+
     _hasPoints = true;
 }
 
