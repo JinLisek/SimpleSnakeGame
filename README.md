@@ -2,8 +2,8 @@
 Simple Snake Game written in C++
 
 To compile:
-  2. cd ${PROJECT\_ROOT}
-  3. mkdir build
-  4. cd build
-  5. cmake -G Ninja ..
-  6. ninja
+1. cd ${PROJECT\_ROOT}
+2. mkdir build
+3. cd build
+4. cmake -G Ninja ..
+5. ninja
