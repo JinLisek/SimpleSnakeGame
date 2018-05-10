@@ -5,47 +5,47 @@
 class TileTest : public ::testing::Test
 {
 public:
-    Tile tileObjectUnderTest;
+    Tile tileUnderTest;
 };
 
 TEST_F(TileTest, CheckThatFileIsPassableAndHasNoPointsByDefault)
 {
-    EXPECT_TRUE(tileObjectUnderTest.isPassable());
-    EXPECT_FALSE(tileObjectUnderTest.hasPoints());
+    EXPECT_TRUE(tileUnderTest.isPassable());
+    EXPECT_FALSE(tileUnderTest.hasPoints());
 }
 
 TEST_F(TileTest, CheckThatAfterBuildingWallItsUnpassableAndAfterDestroyingTheWallTileIsPassableAgain)
 {
-    tileObjectUnderTest.buildWall();
-    EXPECT_FALSE(tileObjectUnderTest.isPassable());
+    tileUnderTest.buildWall();
+    EXPECT_FALSE(tileUnderTest.isPassable());
 
-    tileObjectUnderTest.destroyWall();
-    EXPECT_TRUE(tileObjectUnderTest.isPassable());
+    tileUnderTest.destroyWall();
+    EXPECT_TRUE(tileUnderTest.isPassable());
 }
 
 TEST_F(TileTest, CheckThatAfterPlacingPointsTileHasPointsAndAfterTakingPointsTileNoLongerHasPoints)
 {
-    tileObjectUnderTest.placePoints();
-    EXPECT_TRUE(tileObjectUnderTest.hasPoints());
+    tileUnderTest.placePoints();
+    EXPECT_TRUE(tileUnderTest.hasPoints());
 
-    tileObjectUnderTest.takePoints();
-    EXPECT_FALSE(tileObjectUnderTest.hasPoints());
+    tileUnderTest.takePoints();
+    EXPECT_FALSE(tileUnderTest.hasPoints());
 }
 
 TEST_F(TileTest, CheckThatPointsWontBePlacedWhenTileHasWall)
 {
-    tileObjectUnderTest.buildWall();
-    EXPECT_FALSE(tileObjectUnderTest.hasPoints());
+    tileUnderTest.buildWall();
+    EXPECT_FALSE(tileUnderTest.hasPoints());
 
-    EXPECT_THROW(tileObjectUnderTest.placePoints(), WallAndPointsOnSameTileException);
-    EXPECT_FALSE(tileObjectUnderTest.hasPoints());
+    EXPECT_THROW(tileUnderTest.placePoints(), WallAndPointsOnSameTileException);
+    EXPECT_FALSE(tileUnderTest.hasPoints());
 }
 
 TEST_F(TileTest, CheckThatWallWontBePlacedWhenTileHaspoints)
 {
-    tileObjectUnderTest.placePoints();
-    EXPECT_TRUE(tileObjectUnderTest.isPassable());
+    tileUnderTest.placePoints();
+    EXPECT_TRUE(tileUnderTest.isPassable());
 
-    EXPECT_THROW(tileObjectUnderTest.buildWall(), WallAndPointsOnSameTileException);
-    EXPECT_TRUE(tileObjectUnderTest.isPassable());
+    EXPECT_THROW(tileUnderTest.buildWall(), WallAndPointsOnSameTileException);
+    EXPECT_TRUE(tileUnderTest.isPassable());
 }

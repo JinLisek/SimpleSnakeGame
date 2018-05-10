@@ -7,15 +7,17 @@
 
 #include "TileRepresentationTestHelper.hpp"
 
-template <typename T, typename Y>
-void checkEqualityOfTypesWithPointer(Y actual)
+using namespace testing;
+
+template <typename ExpectedType, typename ActualType>
+void checkEqualityOfTypesWithPointer(ActualType actualObject)
 {
-    EXPECT_EQ(typeid(T), typeid(*actual));
+    EXPECT_EQ(typeid(ExpectedType), typeid(*actualObject));
 }
 
 
 class TileRepresentationFactoryTest
-    :   public ::testing::Test,
+    :   public Test,
         public TileRepresentationTestHelper
 {
 public:

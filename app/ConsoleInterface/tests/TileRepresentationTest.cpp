@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include <memory>
 
 #include "TileRepresentationFactory.hpp"
@@ -7,6 +8,8 @@
 
 #include "TileRepresentationTestHelper.hpp"
 
+using namespace testing;
+
 void checkEqualityOfStrings(const std::string& expected, const std::string& actual)
 {
     EXPECT_STREQ(expected.c_str(), actual.c_str());
@@ -14,7 +17,7 @@ void checkEqualityOfStrings(const std::string& expected, const std::string& actu
 
 
 class TileRepresentationTest
-    :   public ::testing::Test,
+    :   public Test,
         public TileRepresentationTestHelper
 {
 public:
