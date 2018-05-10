@@ -8,6 +8,7 @@ class Map
 public:
     using NumOfTiles = StrongType<size_t, struct NumOfTilesParameter>;
     using NumOfRows = StrongType<size_t, struct NumOfRowsParameter>;
+    using RowOfTiles = std::vector<Tile>;
 
     Map(NumOfTiles numOfTiles, NumOfRows numOfRows)
     {
@@ -21,10 +22,10 @@ public:
         }
     }
 
-    std::vector<Tile>& operator[](size_t rowIndex)
+    RowOfTiles& operator[](size_t rowIndex)
     {
         return _rows[rowIndex];
     }
 private:
-    std::vector<std::vector<Tile>> _rows {};
+    std::vector<RowOfTiles> _rows {};
 };
