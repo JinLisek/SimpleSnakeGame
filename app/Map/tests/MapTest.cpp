@@ -10,7 +10,7 @@ public:
     const size_t mapWidth = 3;
     const size_t mapHeight = 4;
 
-    Map mapUnderTest { Map::HorizontalPosition {mapWidth}, Map::VerticalPosition {mapHeight} };
+    Map mapUnderTest { Map::VerticalPosition {mapHeight}, Map::HorizontalPosition {mapWidth} };
 };
 
 TEST_F(MapTest, CheckThatMapIsBuiltWithCorrectWidthAndHeightAndThatTilesAreDefault)
@@ -28,6 +28,17 @@ TEST_F(MapTest, CheckThatMapIsBuiltWithCorrectWidthAndHeightAndThatTilesAreDefau
 
 TEST_F(MapTest, CheckThatMapCanBuldTileWall)
 {
-    EXPECT_TRUE(mapUnderTest.tryToBuildWall(Map::HorizontalPosition {2}, Map::VerticalPosition {3}));
-    EXPECT_FALSE(mapUnderTest.tryToBuildWall(Map::HorizontalPosition {2}, Map::VerticalPosition {3}));
+    EXPECT_TRUE(mapUnderTest[3][2].isPassable());
+    ASSERT_TRUE(mapUnderTest.tryToBuildWall(Map::VerticalPosition {3}, Map::HorizontalPosition {2}));
+    EXPECT_FALSE(mapUnderTest[3][2].isPassable());
+}
+
+//REFACTOR THIS TESTSUITE
+
+TEST_F(MapTest, CheckThatMapCannotBuldWallWhenTileHasPoints)
+{
+    mapUnderTest[3][2].placePoints();
+    EXPECT_TRUE(mapUnderTest[3][2].isPassable());
+    ASSERT_TRUE(mapUnderTest.tryToBuildWall(Map::VerticalPosition {3}, Map::HorizontalPosition {2}));
+    EXPECT_FALSE(mapUnderTest[3][2].isPassable());
 }
