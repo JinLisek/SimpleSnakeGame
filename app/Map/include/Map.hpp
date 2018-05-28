@@ -6,20 +6,24 @@
 class Map
 {
 public:
-    using NumOfTiles = StrongType<size_t, struct NumOfTilesParameter>;
-    using NumOfRows = StrongType<size_t, struct NumOfRowsParameter>;
+    using VerticalPosition = StrongType<size_t, struct NumOfTilesParameter>;
+    using HorizontalPosition = StrongType<size_t, struct NumOfRowsParameter>;
     using RowOfTiles = std::vector<Tile>;
 
-    Map(NumOfTiles numOfTiles, NumOfRows numOfRows)
+    Map(const HorizontalPosition& numOfTiles, const VerticalPosition& numOfRows)
     {
-        for(size_t i = 0; i < numOfRows.get(); ++i)
+        for(size_t x = 0; x < numOfRows.get(); ++x)
         {
             _rows.push_back(std::vector<Tile>{});
-            for(size_t j = 0; j < numOfTiles.get(); ++j)
+            for(size_t y = 0; y < numOfTiles.get(); ++y)
             {
-                _rows[i].push_back(Tile{});
+                _rows[x].push_back(Tile{});
             }
         }
+    }
+
+    bool tryToBuildWall(const HorizontalPosition& numOfTiles, const VerticalPosition& numOfRows)
+    {
     }
 
     RowOfTiles& operator[](size_t rowIndex)
