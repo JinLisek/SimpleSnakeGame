@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "Tile.hpp"
 #include "StrongType.hpp"
 
@@ -10,34 +11,19 @@ public:
     using HorizontalPosition = StrongType<size_t, struct NumOfRowsParameter>;
     using RowOfTiles = std::vector<Tile>;
 
-    Map(const VerticalPosition& numOfRows, const HorizontalPosition& numOfTiles)
-    {
-        for(size_t x = 0; x < numOfRows.get(); ++x)
-        {
-            _rows.push_back(std::vector<Tile>{});
-            for(size_t y = 0; y < numOfTiles.get(); ++y)
-            {
-                _rows[x].push_back(Tile{});
-            }
-        }
-    }
+    Map(const VerticalPosition& numOfRows, const HorizontalPosition& numOfTiles);
 
-    bool tryToBuildWall(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos)
-    {
-        Tile& updatedTile = _rows[verticalPos.get()][horizontalPos.get()];
-        if(updatedTile.isPassable())
-        {
-            updatedTile.buildWall();
-            return true;
-        }
-        
-        return false;
-    }
+    bool buildWallOnTile(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos);
+    bool placePointsOnTile(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos);
 
-    RowOfTiles& operator[](size_t rowIndex)
-    {
-        return _rows[rowIndex];
-    }
+    bool isTilePassable(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos) const;
+    bool hasTilePoints(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos) const;
+
 private:
     std::vector<RowOfTiles> _rows {};
+
+    bool canPlaceThingsOnTile(const Tile& tileToCheck) const;
+
+    Tile& getTileAt(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos);
+    const Tile& getTileAt(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos) const;
 };

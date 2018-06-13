@@ -7,38 +7,64 @@ using namespace testing;
 class MapTest : public Test
 {
 public:
-    const size_t mapWidth = 3;
-    const size_t mapHeight = 4;
+    const size_t MAP_WIDTH = 3;
+    const size_t MAP_HEIGHT = 4;
 
-    Map mapUnderTest { Map::VerticalPosition {mapHeight}, Map::HorizontalPosition {mapWidth} };
+    const Map::VerticalPosition TILE_VERTICAL_POS {3};
+    const Map::HorizontalPosition TILE_HORIZONTAL_POS {2};
+
+    Map mapUnderTest { Map::VerticalPosition {MAP_HEIGHT}, Map::HorizontalPosition {MAP_WIDTH} };
 };
+
 
 TEST_F(MapTest, CheckThatMapIsBuiltWithCorrectWidthAndHeightAndThatTilesAreDefault)
 {
-    for(size_t x = 0; x < mapHeight; ++x)
+    for(size_t x = 0; x < MAP_HEIGHT; ++x)
     {
-        ASSERT_EQ(mapWidth, mapUnderTest[x].size());
-        for(size_t y = 0; y < mapWidth; ++y)
+        for(size_t y = 0; y < MAP_WIDTH; ++y)
         {
-            EXPECT_TRUE(mapUnderTest[x][y].isPassable());
-            EXPECT_FALSE(mapUnderTest[x][y].hasPoints());
+            EXPECT_TRUE(mapUnderTest.isTilePassable(Map::VerticalPosition {x}, Map::HorizontalPosition {y}));
+            EXPECT_FALSE(mapUnderTest.hasTilePoints(Map::VerticalPosition {x}, Map::HorizontalPosition {y}));
         }
     }
 }
 
-TEST_F(MapTest, CheckThatMapCanBuldTileWall)
+
+TEST_F(MapTest, CheckThatAfterBuildingWallTileOnMapIsUnpassable)
 {
-    EXPECT_TRUE(mapUnderTest[3][2].isPassable());
-    ASSERT_TRUE(mapUnderTest.tryToBuildWall(Map::VerticalPosition {3}, Map::HorizontalPosition {2}));
-    EXPECT_FALSE(mapUnderTest[3][2].isPassable());
+    EXPECT_TRUE(mapUnderTest.isTilePassable(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
+    ASSERT_TRUE(mapUnderTest.buildWallOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
+    EXPECT_FALSE(mapUnderTest.isTilePassable(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
 }
 
-//REFACTOR THIS TESTSUITE
+TEST_F(MapTest, CheckThatAfterPlacingPointsTileOnMapHasPoints)
+{
+    EXPECT_FALSE(mapUnderTest.hasTilePoints(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
+    ASSERT_TRUE(mapUnderTest.placePointsOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
+    EXPECT_TRUE(mapUnderTest.hasTilePoints(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
+}
+
 
 TEST_F(MapTest, CheckThatMapCannotBuldWallWhenTileHasPoints)
 {
-    mapUnderTest[3][2].placePoints();
-    EXPECT_TRUE(mapUnderTest[3][2].isPassable());
-    ASSERT_TRUE(mapUnderTest.tryToBuildWall(Map::VerticalPosition {3}, Map::HorizontalPosition {2}));
-    EXPECT_FALSE(mapUnderTest[3][2].isPassable());
+    mapUnderTest.placePointsOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS);
+    ASSERT_FALSE(mapUnderTest.buildWallOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
+}
+
+TEST_F(MapTest, CheckThatMapCannotBuldWallWhenTileHasWall)
+{
+    mapUnderTest.buildWallOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS);
+    ASSERT_FALSE(mapUnderTest.buildWallOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
+}
+
+TEST_F(MapTest, CheckThatMapCannotPlacePointsWhenTileHasWall)
+{
+    mapUnderTest.buildWallOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS);
+    ASSERT_FALSE(mapUnderTest.placePointsOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
+}
+
+TEST_F(MapTest, CheckThatMapCannotPlacePointsWhenTileHasPoints)
+{
+    mapUnderTest.placePointsOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS);
+    ASSERT_FALSE(mapUnderTest.placePointsOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
 }

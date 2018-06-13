@@ -5,8 +5,8 @@ class Tile
 public:
     Tile();
 
-    bool isPassable();
-    bool hasPoints();
+    bool isPassable() const;
+    bool hasPoints() const;
 
     void buildWall();
     void destroyWall();

@@ -2,12 +2,12 @@
 
 Tile::Tile(){}
 
-bool Tile::isPassable()
+bool Tile::isPassable() const
 {
     return _isPassable;
 }
 
-bool Tile::hasPoints()
+bool Tile::hasPoints() const
 {
     return _hasPoints;
 }
