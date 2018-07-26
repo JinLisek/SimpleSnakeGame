@@ -9,21 +9,15 @@
 
 using namespace testing;
 
-template <typename ExpectedType, typename ActualType>
-void checkEqualityOfTypesWithPointer(ActualType actualObject)
-{
-    EXPECT_EQ(typeid(ExpectedType), typeid(*actualObject));
-}
-
-
 class TileRepresentationFactoryTest
     :   public Test,
         public TileRepresentationTestHelper
 {
 public:
-    void checkEqualityOfStrings(const std::string& expected, const std::string& actual)
+    template <typename ExpectedType, typename ActualType>
+    void checkEqualityOfTypesWithPointer(ActualType actualObject)
     {
-        EXPECT_STREQ(expected.c_str(), actual.c_str());
+        EXPECT_EQ(typeid(ExpectedType), typeid(*actualObject));
     }
 
     const TileRepresentationFactory tileRepresentationFactoryUnderTest {};

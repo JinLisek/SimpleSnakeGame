@@ -17,7 +17,7 @@ public:
 };
 
 
-TEST_F(MapTest, CheckThatMapIsBuiltWithCorrectWidthAndHeightAndThatTilesAreDefault)
+TEST_F(MapTest, CheckThatMapIsBuiltWithCorrectWidthAndHeightAndThatTilesArePassableWithoutPoints)
 {
     for(size_t x = 0; x < MAP_HEIGHT; ++x)
     {
@@ -67,4 +67,11 @@ TEST_F(MapTest, CheckThatMapCannotPlacePointsWhenTileHasPoints)
 {
     mapUnderTest.placePointsOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS);
     ASSERT_FALSE(mapUnderTest.placePointsOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS));
+}
+
+TEST_F(MapTest, CheckThatMapGetTileGivesExpectedTile)
+{
+    mapUnderTest.placePointsOnTile(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS);
+    Tile tile = mapUnderTest.getTileAt(TILE_VERTICAL_POS, TILE_HORIZONTAL_POS);
+    ASSERT_TRUE(tile.hasPoints());
 }

@@ -2,3 +2,12 @@ add_subdirectory(Utilities)
 add_subdirectory(Map)
 add_subdirectory(ConsoleInterface)
 add_executable(SnakeWithATwist main.cpp)
+
+target_link_libraries(SnakeWithATwist
+    PRIVATE Map
+    PRIVATE ConsoleInterface
+)
+
+target_compile_options(SnakeWithATwist PRIVATE -Wall -Wextra -Werror)
+
+target_compile_features(SnakeWithATwist PRIVATE cxx_std_14)

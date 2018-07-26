@@ -19,11 +19,16 @@ public:
     bool isTilePassable(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos) const;
     bool hasTilePoints(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos) const;
 
-private:
-    std::vector<RowOfTiles> _rows {};
-
-    bool canPlaceThingsOnTile(const Tile& tileToCheck) const;
-
     Tile& getTileAt(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos);
     const Tile& getTileAt(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos) const;
+
+    unsigned getNumOfRows() const { return _numOfRows; }
+    unsigned getNumOfColumns() const { return _numOfColumns; }
+
+private:
+    bool canPlaceThingsOnTile(const Tile& tileToCheck) const;
+
+    std::vector<RowOfTiles> _rows {};
+    unsigned _numOfRows;
+    unsigned _numOfColumns;    
 };

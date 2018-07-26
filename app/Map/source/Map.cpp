@@ -1,11 +1,13 @@
 #include "Map.hpp"
 
-Map::Map(const VerticalPosition& numOfRows, const HorizontalPosition& numOfTiles)
+Map::Map(const VerticalPosition& numOfRows, const HorizontalPosition& numOfTiles) :
+    _numOfRows(numOfRows.get()),
+    _numOfColumns(numOfTiles.get())
 {
-    for(size_t x = 0; x < numOfRows.get(); ++x)
+    for(size_t x = 0; x < _numOfRows; ++x)
     {
         _rows.push_back(std::vector<Tile>{});
-        for(size_t y = 0; y < numOfTiles.get(); ++y)
+        for(size_t y = 0; y < _numOfColumns; ++y)
         {
             _rows[x].push_back(Tile{});
         }

@@ -3,7 +3,7 @@
 
 std::string EmptyTileRepresentation::toString() const
 {
-    return std::string {" "};
+    return std::string {"."};
 }
 
 std::string WalledTileRepresentation::toString() const
@@ -13,5 +13,5 @@ std::string WalledTileRepresentation::toString() const
 
 std::string PointsTileRepresentation::toString() const
 {
-    return std::string {"."};
+    return std::string {"$"};
 }
