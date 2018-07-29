@@ -2,26 +2,25 @@
 #include "TileRepresentation.hpp"
 #include "TileRepresentationFactory.hpp"
 #include "Map.hpp"
+#include "MapRepresentation.hpp"
 
 int main()
 {
     unsigned mapRows = 20;
     unsigned mapColumns = 80;
 
-    TileRepresentationFactory representationFactory {};
-
     Map map(Map::VerticalPosition {mapRows}, Map::HorizontalPosition {mapColumns});
+    MapRepresentation mapRepresentation {map};
 
-    for(size_t x = 0; x < mapRows; ++x)
+    for(unsigned x = 6; x < 11; ++x)
     {
-        for(size_t y = 0; y < mapColumns; ++y)
+        for(unsigned y = 30; y < 40; ++y)
         {
-            auto tileRepresentation = representationFactory.createTileRepresentation(map.getTileAt(Map::VerticalPosition {x}, Map::HorizontalPosition {y}));
-            std::cout << tileRepresentation->toString();
+            map.buildWallOnTile(Map::VerticalPosition {x}, Map::HorizontalPosition {y});
         }
-
-        std::cout << std::endl;
     }
+
+    std::cout << mapRepresentation.draw() << std::endl;
 
     return 0;
 }

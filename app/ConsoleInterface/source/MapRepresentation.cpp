@@ -2,6 +2,7 @@
 #include "Map.hpp"
 #include "MapRepresentation.hpp"
 #include "TileRepresentation.hpp"
+#include "ConsoleColours.hpp"
 
 MapRepresentation::MapRepresentation(const Map& map) :
     _map {map}
@@ -16,8 +17,9 @@ std::string MapRepresentation::draw() const
     {
         for(size_t y = 0; y < _map.getNumOfColumns(); ++y)
         {
-            auto tileRepresentation = tileRepresentationFactory.createTileRepresentation(_map.getTileAt(Map::VerticalPosition {x}, Map::HorizontalPosition {y}));
-            representation += tileRepresentation->toString();
+            const auto tile = _map.getTileAt(Map::VerticalPosition {x}, Map::HorizontalPosition {y});
+            const auto& tileRepresentation = tileRepresentationFactory.createTileRepresentation(tile);
+            representation += tileRepresentation->draw();
         }
 
         representation += "\n";

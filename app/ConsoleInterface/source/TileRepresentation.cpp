@@ -1,17 +1,18 @@
 #include "TileRepresentation.hpp"
 #include "Tile.hpp"
+#include "ConsoleColours.hpp"
 
-std::string EmptyTileRepresentation::toString() const
+std::string EmptyTileRepresentation::draw() const
 {
-    return std::string {"."};
+    return greenText + std::string {"."};
 }
 
-std::string WalledTileRepresentation::toString() const
+std::string WalledTileRepresentation::draw() const
 {
-    return std::string {"#"};
+    return whiteText + std::string {"#"};
 }
 
-std::string PointsTileRepresentation::toString() const
+std::string PointsTileRepresentation::draw() const
 {
-    return std::string {"$"};
+    return yellowText + std::string {"$"};
 }

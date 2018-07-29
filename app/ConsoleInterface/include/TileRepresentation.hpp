@@ -9,7 +9,7 @@ class ITileRepresentation
 public:
     virtual ~ITileRepresentation() = default;
 
-    virtual std::string toString() const = 0;
+    virtual std::string draw() const = 0;
 };
 
 class EmptyTileRepresentation : public ITileRepresentation
@@ -17,7 +17,7 @@ class EmptyTileRepresentation : public ITileRepresentation
 public:
     ~EmptyTileRepresentation() override = default;
 
-    std::string toString() const override;
+    std::string draw() const override;
 };
 
 class WalledTileRepresentation : public ITileRepresentation
@@ -25,7 +25,7 @@ class WalledTileRepresentation : public ITileRepresentation
 public:
     ~WalledTileRepresentation() override = default;
 
-    std::string toString() const override;
+    std::string draw() const override;
 };
 
 class PointsTileRepresentation : public ITileRepresentation
@@ -33,5 +33,5 @@ class PointsTileRepresentation : public ITileRepresentation
 public:
     ~PointsTileRepresentation() override = default;
 
-    std::string toString() const override;
+    std::string draw() const override;
 };

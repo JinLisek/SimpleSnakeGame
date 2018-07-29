@@ -7,6 +7,7 @@
 #include "Tile.hpp"
 
 #include "TileRepresentationTestHelper.hpp"
+#include "ConsoleColours.hpp"
 
 using namespace testing;
 
@@ -22,23 +23,23 @@ public:
     const std::string POINTS_TILE_STRING = std::string{"$"};
 };
 
-TEST_F(TileRepresentationTest, CheckThatDefaultTileIsPrintedAsEmpty)
+TEST_F(TileRepresentationTest, CheckThatEmptyTileIsPrintedAsGreenDot)
 {
     const auto emptyTileRepresentation = tileRepresentationFactory.createTileRepresentation(emptyTile);
 
-    checkEqualityOfStrings(EMPTY_TILE_STRING, emptyTileRepresentation->toString());
+    checkEqualityOfStrings(greenText + EMPTY_TILE_STRING, emptyTileRepresentation->draw());
 }
 
-TEST_F(TileRepresentationTest, CheckThatTileWithWallIsPrintedAsHash)
+TEST_F(TileRepresentationTest, CheckThatTileWithWallIsPrintedAsWhiteHash)
 {
     const auto walledTileRepresentation = tileRepresentationFactory.createTileRepresentation(walledTile);
 
-    checkEqualityOfStrings(WALLED_TILE_STRING, walledTileRepresentation->toString());
+    checkEqualityOfStrings(whiteText + WALLED_TILE_STRING, walledTileRepresentation->draw());
 }
 
-TEST_F(TileRepresentationTest, CheckThatTileWithPointsIsPrintedAsDot)
+TEST_F(TileRepresentationTest, CheckThatTileWithPointsIsPrintedAsYellowDollar)
 {
     const auto pointsTileRepresentation = tileRepresentationFactory.createTileRepresentation(pointsTile);
 
-    checkEqualityOfStrings(POINTS_TILE_STRING, pointsTileRepresentation->toString());
+    checkEqualityOfStrings(yellowText + POINTS_TILE_STRING, pointsTileRepresentation->draw());
 }

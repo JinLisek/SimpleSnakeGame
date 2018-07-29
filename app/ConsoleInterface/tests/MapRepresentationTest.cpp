@@ -4,6 +4,7 @@
 #include "Map.hpp"
 
 #include "TileRepresentationTestHelper.hpp"
+#include "ConsoleColours.hpp"
 
 using namespace testing;
 
@@ -16,22 +17,54 @@ public:
 
     MapRepresentation objectUnderTest {map};
 
-    static constexpr unsigned MAP_HEIGHT = 3;
-    static constexpr unsigned MAP_WIDTH = 3;
+    static constexpr unsigned MAP_HEIGHT = 2;
+    static constexpr unsigned MAP_WIDTH = 2;
 
     static constexpr unsigned TILE_HEIGHT = 1;
-    static constexpr unsigned TILE_WEIGHT = 1;
+    static constexpr unsigned TILE_WIDTH = 1;
 
-    std::string defaultMapRepresentation{"...\n...\n...\n"};
+    const std::string EMPTY_TILE_REPRESENTATION {greenText + "."};
+    const std::string WALL_TILE_REPRESENTATION {whiteText + "#"};
+    const std::string POINTS_TILE_REPRESENTATION {yellowText + "$"};
+
+    std::string mapArray[MAP_HEIGHT][MAP_WIDTH]
+    {
+        {EMPTY_TILE_REPRESENTATION, EMPTY_TILE_REPRESENTATION},
+        {EMPTY_TILE_REPRESENTATION, EMPTY_TILE_REPRESENTATION}
+    };
+
+    std::string mapArrayToString(std::string mapArray[2][2])
+    {
+        std::string result {};
+
+        for(size_t x = 0; x < MAP_HEIGHT; ++x)
+        {
+            for(size_t y = 0; y < MAP_WIDTH; ++y)
+            {
+                result += mapArray[x][y];
+            }
+            result += "\n";
+        }
+
+        return result;
+    }
 };
 
-TEST_F(MapRepresentationTest, CheckThatMapRepresentationForDefaultMapGivesDefaultRepresentationWithDots)
+TEST_F(MapRepresentationTest, CheckThatMapRepresentationForDefaultMapGivesRepresentationWithOnlyGreenDots)
 {
-    checkEqualityOfStrings(defaultMapRepresentation, objectUnderTest.draw());
+    checkEqualityOfStrings(mapArrayToString(mapArray), objectUnderTest.draw());
 }
 
-TEST_F(MapRepresentationTest, CheckThatMapRepresentationWithBuiltWallsGivesRepresentationWithHashes)
+TEST_F(MapRepresentationTest, CheckThatMapRepresentationWithBuiltWallGivesRepresentationWithGreenDotsAndWhiteHash)
 {
-    map.buildWallOnTile(Map::VerticalPosition {TILE_HEIGHT}, Map::HorizontalPosition {TILE_WEIGHT});    
-    checkEqualityOfStrings("...\n.#.\n...\n", objectUnderTest.draw()); // TODO: Extract to function modyfing defaultMapRepresentation
+    map.buildWallOnTile(Map::VerticalPosition {TILE_HEIGHT}, Map::HorizontalPosition {TILE_WIDTH});    
+    mapArray[TILE_HEIGHT][TILE_WIDTH] = WALL_TILE_REPRESENTATION;
+    checkEqualityOfStrings(mapArrayToString(mapArray), objectUnderTest.draw());
+}
+
+TEST_F(MapRepresentationTest, CheckThatMapRepresentationWithPointsGivesRepresentationWithGreenDotsAndYellowDollar)
+{
+    map.placePointsOnTile(Map::VerticalPosition {TILE_HEIGHT}, Map::HorizontalPosition {TILE_WIDTH});    
+    mapArray[TILE_HEIGHT][TILE_WIDTH] = POINTS_TILE_REPRESENTATION;
+    checkEqualityOfStrings(mapArrayToString(mapArray), objectUnderTest.draw());
 }
