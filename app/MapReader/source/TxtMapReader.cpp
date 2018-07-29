@@ -1,41 +1,47 @@
-#include <fstream>
-
 #include "TxtMapReader.hpp"
 #include "Map.hpp"
+#include "FileReader.hpp"
+#include <iostream>
+
+size_t findNumberInFirstLineAndEraseTheLine(std::string& text) //TODO: move it somewhere else?
+{
+    auto endOfLinePosition = text.find('\n');
+    std::string textValue {text.substr(0, endOfLinePosition)};
+    text.erase(0, endOfLinePosition + 1);
+    return std::stoul(textValue);//TODO: exceptions
+}
 
 std::unique_ptr<Map> TxtMapReader::readMapFromFile(const std::string& filePath) const //TODO: REFACTOR!!!!!!!
 {
-    std::ifstream mapInputFile {filePath};
+    FileReader file{filePath};
+    std::string fileContent = file.getFileContent();
+    
+    const size_t mapWidth = findNumberInFirstLineAndEraseTheLine(fileContent); //TODO: add exceptions when incorrect map size
+    const size_t mapHeight = findNumberInFirstLineAndEraseTheLine(fileContent);
 
-    auto map = std::make_unique<Map>(Map::VerticalPosition{3}, Map::HorizontalPosition{3});
+    auto map = std::make_unique<Map>(Map::VerticalPosition{mapHeight}, Map::HorizontalPosition{mapWidth});
 
-    std::string tileRow {};
+    size_t vertical = 0;
+    size_t horizontal = 0;
 
-    unsigned x = 0;
-    unsigned y = 0;
-
-    if(mapInputFile.is_open())
+    for(const auto inputChar : fileContent)
     {
-        while(getline(mapInputFile, tileRow))
+        if(inputChar == '#') //TODO: refactor to factory or something?
         {
-            for(const auto tileChar : tileRow)
-            {
-                if(tileChar == '#')
-                {
-                    map->buildWallOnTile(Map::VerticalPosition{y}, Map::HorizontalPosition{x});
-                }
-                else if(tileChar == '$')
-                {
-                    map->placePointsOnTile(Map::VerticalPosition{y}, Map::HorizontalPosition{x});
-                }
-                ++x;
-            }
-            x = 0;
-            ++y;
+            map->buildWallOnTile(Map::VerticalPosition{vertical}, Map::HorizontalPosition{horizontal});
         }
-    }
+        else if(inputChar == '$')
+        {
+            map->placePointsOnTile(Map::VerticalPosition{vertical}, Map::HorizontalPosition{horizontal});
+        }
+        else if(inputChar == '\n')
+        {
+            ++vertical;
+            horizontal = -1;
+        }
 
-    mapInputFile.close();
+        ++horizontal;
+    }
 
     return std::move(map);
 }

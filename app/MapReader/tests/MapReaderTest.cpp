@@ -74,3 +74,12 @@ TEST_F(MapReaderTest, CheckThatMapReaderReadsMapWithPoints)
     checkMapSize(*map);
     checkTilesInGeneratedMap(*map, tiles);
 }
+
+TEST_F(MapReaderTest, CheckThatMapReaderReadsBiggerEmptyMap)
+{
+    TxtMapReader reader{};
+    auto map = reader.readMapFromFile("test_input/Empty100x10Map.txt");
+
+    EXPECT_EQ(10, map->getNumOfRows());
+    EXPECT_EQ(100, map->getNumOfColumns());
+}

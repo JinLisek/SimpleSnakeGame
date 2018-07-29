@@ -1,4 +1,4 @@
-add_gmock_test(MapReaderTests MapReaderTest.cpp)
+add_gmock_test(MapReaderTests MapReaderTest.cpp FileReaderTest.cpp)
 
 add_custom_command(
     TARGET MapReaderTests PRE_LINK
