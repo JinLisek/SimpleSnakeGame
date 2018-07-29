@@ -1,6 +1,7 @@
 add_subdirectory(Utilities)
 add_subdirectory(Map)
 add_subdirectory(ConsoleInterface)
+add_subdirectory(MapReader)
 add_executable(SnakeWithATwist main.cpp)
 
 target_link_libraries(SnakeWithATwist
