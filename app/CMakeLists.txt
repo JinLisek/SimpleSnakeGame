@@ -8,6 +8,7 @@ target_link_libraries(SnakeWithATwist
     PRIVATE Map
     PRIVATE ConsoleInterface
     PRIVATE MapReader
+    PRIVATE pthread
 )
 
 target_compile_options(SnakeWithATwist PRIVATE -Wall -Wextra -Werror)
