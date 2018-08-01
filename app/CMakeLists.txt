@@ -1,15 +1,15 @@
 add_subdirectory(Utilities)
-add_subdirectory(Map)
+add_subdirectory(GameLogic)
 add_subdirectory(ConsoleInterface)
-add_subdirectory(MapReader)
+add_subdirectory(GraphicsOutput)
+add_subdirectory(UserInput)
 add_executable(SnakeWithATwist main.cpp)
 
 target_link_libraries(SnakeWithATwist
-    PRIVATE Map
-    PRIVATE ConsoleInterface
-    PRIVATE MapReader
+    PRIVATE GameLogic
+    PRIVATE GraphicsOutput
+    PRIVATE UserInput
     PRIVATE pthread
-    PRIVATE sfml-window
 )
 
 target_compile_options(SnakeWithATwist PRIVATE -Wall -Wextra -Werror)
