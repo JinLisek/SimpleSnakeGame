@@ -9,6 +9,7 @@ target_link_libraries(SnakeWithATwist
     PRIVATE ConsoleInterface
     PRIVATE MapReader
     PRIVATE pthread
+    PRIVATE sfml-window
 )
 
 target_compile_options(SnakeWithATwist PRIVATE -Wall -Wextra -Werror)

@@ -7,17 +7,15 @@
 #include "MapRepresentation.hpp"
 #include "TxtMapReader.hpp"
 #include "KeyboardInput.hpp"
+#include "SFML/Window/Keyboard.hpp"
 
 bool QUIT = false;
 
 void getUserInput()
 {
-    char inputCharacter;
     while(true)
     {
-       inputCharacter = getch();
-
-        if(inputCharacter == 27)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
             QUIT = true;
             break;

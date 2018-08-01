@@ -7,6 +7,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 enable_testing()
 
 include(gmock)
+include(sfml)
 include(cached_config)
 include(config)
 
