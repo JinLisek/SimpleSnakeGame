@@ -8,3 +8,5 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     #           This warning provides no useful info"
 endif()
 
+set_property(GLOBAL PROPERTY GLOBAL_DEPENDS_NO_CYCLES true)
+
