@@ -7,7 +7,7 @@ target_include_directories(UserInput
     PUBLIC include)
 
 target_link_libraries(UserInput
-    PRIVATE GameLogic
+    PRIVATE Game
     PRIVATE sfml-window
 )
 

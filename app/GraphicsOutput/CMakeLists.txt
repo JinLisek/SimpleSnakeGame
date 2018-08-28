@@ -8,6 +8,6 @@ target_include_directories(GraphicsOutput
 
 target_link_libraries(GraphicsOutput
     PRIVATE ConsoleInterface
-    PRIVATE GameLogic
+    PRIVATE Game
 )
 

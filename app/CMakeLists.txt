@@ -6,7 +6,7 @@ add_subdirectory(UserInput)
 add_executable(SnakeWithATwist main.cpp)
 
 target_link_libraries(SnakeWithATwist
-    PRIVATE GameLogic
+    PRIVATE Game
     PRIVATE GraphicsOutput
     PRIVATE UserInput
     PRIVATE pthread
