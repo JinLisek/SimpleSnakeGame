@@ -3,8 +3,8 @@
 
 int main()
 {
-    GraphicsOutput graphics {};
-    graphics.beginDrawingGraphics();
+    // GraphicsOutput graphics {};
+    // graphics.beginDrawingGraphics();
 
     KeyboardInput keyInput {};
     keyInput.beginWaitingOnInput();
