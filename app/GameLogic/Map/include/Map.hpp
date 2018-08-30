@@ -2,33 +2,32 @@
 
 #include <vector>
 #include "Tile.hpp"
-#include "StrongType.hpp"
+#include "PositionTypes.hpp"
 
 class Map
 {
 public:
-    using VerticalPosition = StrongType<size_t, struct NumOfTilesParameter>;
-    using HorizontalPosition = StrongType<size_t, struct NumOfRowsParameter>;
     using RowOfTiles = std::vector<Tile>;
 
-    Map(const VerticalPosition& numOfRows, const HorizontalPosition& numOfTiles);
+    Map(const PosX& numOfColumns, const PosY& numOfTiles);
 
-    bool buildWallOnTile(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos);
-    bool placePointsOnTile(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos);
+    bool buildWallOnTile(const PosX& horizontalPos, const PosY& verticalPos);
+    bool placePointsOnTile(const PosX& horizontalPos, const PosY& verticalPos);
 
-    bool isTilePassable(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos) const;
-    bool hasTilePoints(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos) const;
+    bool isTilePassable(const PosX& horizontalPos, const PosY& verticalPos) const;
+    bool hasTilePoints(const PosX& horizontalPos, const PosY& verticalPos) const;
 
-    Tile& getTileAt(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos);
-    const Tile& getTileAt(const VerticalPosition& verticalPos, const HorizontalPosition& horizontalPos) const;
+    Tile& getTileAt(const PosX& horizontalPos, const PosY& verticalPos);
+    const Tile& getTileAt(const PosX& horizontalPos, const PosY& verticalPos) const;
 
-    unsigned getNumOfRows() const { return _numOfRows; }
-    unsigned getNumOfColumns() const { return _numOfColumns; }
+    unsigned getNumOfRows() const { return _numOfRows.get(); }
+    unsigned getNumOfColumns() const { return _numOfColumns.get(); }
 
 private:
     bool canPlaceThingsOnTile(const Tile& tileToCheck) const;
 
     std::vector<RowOfTiles> _rows {};
-    unsigned _numOfRows;
-    unsigned _numOfColumns;    
+
+    PosX _numOfColumns;   
+    PosY _numOfRows; 
 };

@@ -13,7 +13,7 @@ class MapRepresentationTest :
     public TileRepresentationTestHelper
 {
 public:
-    Map map {Map::VerticalPosition {MAP_HEIGHT}, Map::HorizontalPosition {MAP_WIDTH}};
+    Map map {PosX {MAP_WIDTH}, PosY {MAP_HEIGHT}};
 
     MapRepresentation objectUnderTest {map};
 
@@ -57,14 +57,14 @@ TEST_F(MapRepresentationTest, CheckThatMapRepresentationForDefaultMapGivesRepres
 
 TEST_F(MapRepresentationTest, CheckThatMapRepresentationWithBuiltWallGivesRepresentationWithGreenDotsAndWhiteHash)
 {
-    map.buildWallOnTile(Map::VerticalPosition {TILE_HEIGHT}, Map::HorizontalPosition {TILE_WIDTH});    
+    map.buildWallOnTile(PosX {TILE_WIDTH}, PosY {TILE_HEIGHT});    
     mapArray[TILE_HEIGHT][TILE_WIDTH] = WALL_TILE_REPRESENTATION;
     checkEqualityOfStrings(mapArrayToString(mapArray), objectUnderTest.draw());
 }
 
 TEST_F(MapRepresentationTest, CheckThatMapRepresentationWithPointsGivesRepresentationWithGreenDotsAndYellowDollar)
 {
-    map.placePointsOnTile(Map::VerticalPosition {TILE_HEIGHT}, Map::HorizontalPosition {TILE_WIDTH});    
+    map.placePointsOnTile(PosX {TILE_WIDTH}, PosY {TILE_HEIGHT});    
     mapArray[TILE_HEIGHT][TILE_WIDTH] = POINTS_TILE_REPRESENTATION;
     checkEqualityOfStrings(mapArrayToString(mapArray), objectUnderTest.draw());
 }

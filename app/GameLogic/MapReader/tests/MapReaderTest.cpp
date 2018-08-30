@@ -28,8 +28,8 @@ public:
         {
             for(size_t y = 0; y < MAP_WIDTH; ++y)
             {
-                EXPECT_EQ(tiles[x][y].isPassable(), map.isTilePassable(Map::VerticalPosition{x}, Map::HorizontalPosition{y}));
-                EXPECT_EQ(tiles[x][y].hasPoints(), map.hasTilePoints(Map::VerticalPosition{x}, Map::HorizontalPosition{y}));
+                EXPECT_EQ(tiles[x][y].isPassable(), map.isTilePassable(PosX{y}, PosY{x}));
+                EXPECT_EQ(tiles[x][y].hasPoints(), map.hasTilePoints(PosX{y}, PosY{x}));
             }
         }
     }
@@ -46,8 +46,8 @@ constexpr size_t MapReaderTest::MAP_WIDTH;
 
 TEST_F(MapReaderTest, CheckThatMapReaderReadsEmptyMap)
 {
-    TxtMapReader reader{};
-    auto map = reader.readMapFromFile("test_input/Empty3x3Map.txt");
+    TxtMapReader reader{"test_input/Empty3x3Map.txt"};
+    auto map = reader.readMap();
 
     checkMapSize(*map);
     checkTilesInGeneratedMap(*map, tiles);
@@ -55,8 +55,8 @@ TEST_F(MapReaderTest, CheckThatMapReaderReadsEmptyMap)
 
 TEST_F(MapReaderTest, CheckThatMapReaderReadsMapWithWall)
 {
-    TxtMapReader reader{};
-    auto map = reader.readMapFromFile("test_input/3x3MapWithWallInTheCenter.txt");
+    TxtMapReader reader{"test_input/3x3MapWithWallInTheCenter.txt"};
+    auto map = reader.readMap();
 
     tiles[CENTER_TILE_VERTICAL_POS][CENTER_TILE_HORIZONTAL_POS].buildWall();
 
@@ -66,8 +66,8 @@ TEST_F(MapReaderTest, CheckThatMapReaderReadsMapWithWall)
 
 TEST_F(MapReaderTest, CheckThatMapReaderReadsMapWithPoints)
 {
-    TxtMapReader reader{};
-    auto map = reader.readMapFromFile("test_input/3x3MapWithPointsInTheCenter.txt");
+    TxtMapReader reader{"test_input/3x3MapWithPointsInTheCenter.txt"};
+    auto map = reader.readMap();
 
     tiles[CENTER_TILE_VERTICAL_POS][CENTER_TILE_HORIZONTAL_POS].placePoints();
 
@@ -75,10 +75,19 @@ TEST_F(MapReaderTest, CheckThatMapReaderReadsMapWithPoints)
     checkTilesInGeneratedMap(*map, tiles);
 }
 
+TEST_F(MapReaderTest, CheckThatMapReaderReadsMapWithSnake)
+{
+    TxtMapReader reader{"test_input/3x3MapWithSnakeInTheCenter.txt"};
+    auto snake =  reader.readSnake();
+
+    EXPECT_EQ(3, snake->getPosition().first);
+    EXPECT_EQ(3, snake->getPosition().second);
+}
+
 TEST_F(MapReaderTest, CheckThatMapReaderReadsBiggerEmptyMap)
 {
-    TxtMapReader reader{};
-    auto map = reader.readMapFromFile("test_input/Empty100x10Map.txt");
+    TxtMapReader reader{"test_input/Empty100x10Map.txt"};
+    auto map = reader.readMap();
 
     EXPECT_EQ(10, map->getNumOfRows());
     EXPECT_EQ(100, map->getNumOfColumns());

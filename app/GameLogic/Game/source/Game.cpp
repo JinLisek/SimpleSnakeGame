@@ -5,6 +5,6 @@ GameState Game::gameState = GameState::Playing;
 
 std::unique_ptr<Map> Game::getMap()
 {
-    TxtMapReader mapReader{};
-    return mapReader.readMapFromFile("../Maps/DefaultMap.txt");
+    TxtMapReader mapReader{"../Maps/DefaultMap.txt"};
+    return mapReader.readMap();
 }

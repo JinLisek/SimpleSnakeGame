@@ -1,7 +1,12 @@
+#include <iostream>
+
 #include "TxtMapReader.hpp"
 #include "Map.hpp"
 #include "FileReader.hpp"
-#include <iostream>
+#include "PositionTypes.hpp"
+
+namespace
+{
 
 size_t findNumberInFirstLineAndEraseTheLine(std::string& text) //TODO: move it somewhere else?
 {
@@ -11,7 +16,7 @@ size_t findNumberInFirstLineAndEraseTheLine(std::string& text) //TODO: move it s
     return std::stoul(textValue);//TODO: exceptions
 }
 
-std::unique_ptr<Map> TxtMapReader::readMapFromFile(const std::string& filePath) const //TODO: REFACTOR!!!!!!!
+Map readMapFromFile(const std::string& filePath) //TODO: REFACTOR!!!!!!!
 {
     FileReader file{filePath};
     std::string fileContent = file.getFileContent();
@@ -19,7 +24,7 @@ std::unique_ptr<Map> TxtMapReader::readMapFromFile(const std::string& filePath) 
     const size_t mapWidth = findNumberInFirstLineAndEraseTheLine(fileContent); //TODO: add exceptions when incorrect map size
     const size_t mapHeight = findNumberInFirstLineAndEraseTheLine(fileContent);
 
-    auto map = std::make_unique<Map>(Map::VerticalPosition{mapHeight}, Map::HorizontalPosition{mapWidth});
+    auto map = Map{PosX{mapWidth}, PosY{mapHeight}};
 
     size_t vertical = 0;
     size_t horizontal = 0;
@@ -28,11 +33,11 @@ std::unique_ptr<Map> TxtMapReader::readMapFromFile(const std::string& filePath) 
     {
         if(inputChar == '#') //TODO: refactor to factory or something?
         {
-            map->buildWallOnTile(Map::VerticalPosition{vertical}, Map::HorizontalPosition{horizontal});
+            map.buildWallOnTile(PosX{horizontal}, PosY{vertical});
         }
         else if(inputChar == '$')
         {
-            map->placePointsOnTile(Map::VerticalPosition{vertical}, Map::HorizontalPosition{horizontal});
+            map.placePointsOnTile(PosX{horizontal}, PosY{vertical});
         }
         else if(inputChar == '\n')
         {
@@ -44,4 +49,22 @@ std::unique_ptr<Map> TxtMapReader::readMapFromFile(const std::string& filePath) 
     }
 
     return std::move(map);
+}
+
+}
+
+TxtMapReader::TxtMapReader(const std::string& filePath) :
+    _filePath {filePath},
+    _map{readMapFromFile(_filePath)}
+{
+}
+
+std::unique_ptr<Map> TxtMapReader::readMap() const
+{
+    return std::make_unique<Map>(_map);
+}
+
+std::unique_ptr<Snake> TxtMapReader::readSnake() const
+{
+    return std::make_unique<Snake>(_snake);
 }
