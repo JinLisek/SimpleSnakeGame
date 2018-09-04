@@ -14,7 +14,7 @@ void drawMap()
     auto map = game.getMap();
     MapRepresentation mapRepresentation {*map};
 
-    while(true)
+    while(Game::gameState != GameState::Quit)
     {
         clear();
         std::cout << mapRepresentation.draw() << std::endl;

@@ -1,4 +1,4 @@
-#include "KeyboardInput.hpp"
+#include "InputAdapter.hpp"
 #include "GraphicsOutput.hpp"
 
 int main()
@@ -6,8 +6,8 @@ int main()
     GraphicsOutput graphics {};
     graphics.beginDrawingGraphics();
 
-    KeyboardInput keyInput {};
-    keyInput.beginWaitingOnInput();
+    InputAdapter inputAdapter {};
+    inputAdapter.beginWaitingOnInput();
 
     return 0;
 }
