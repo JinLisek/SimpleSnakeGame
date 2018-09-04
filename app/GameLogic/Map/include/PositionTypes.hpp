@@ -2,5 +2,5 @@
 
 #include "StrongType.hpp"
 
-using PosX = StrongType<size_t, struct NumOfTilesParameter>;
-using PosY = StrongType<size_t, struct NumOfRowsParameter>;
+using PosX = StrongType<unsigned, struct NumOfTilesParameter>;
+using PosY = StrongType<unsigned, struct NumOfRowsParameter>;

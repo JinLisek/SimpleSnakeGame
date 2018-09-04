@@ -7,8 +7,8 @@ using namespace testing;
 class MapTest : public Test
 {
 public:
-    const size_t MAP_WIDTH = 3;
-    const size_t MAP_HEIGHT = 4;
+    const unsigned MAP_WIDTH = 3;
+    const unsigned MAP_HEIGHT = 4;
 
     const PosY TILE_VERTICAL_POS {3};
     const PosX TILE_HORIZONTAL_POS {2};
@@ -19,9 +19,9 @@ public:
 
 TEST_F(MapTest, CheckThatMapIsBuiltWithCorrectWidthAndHeightAndThatTilesArePassableWithoutPoints)
 {
-    for(size_t x = 0; x < MAP_HEIGHT; ++x)
+    for(unsigned x = 0; x < MAP_HEIGHT; ++x)
     {
-        for(size_t y = 0; y < MAP_WIDTH; ++y)
+        for(unsigned y = 0; y < MAP_WIDTH; ++y)
         {
             EXPECT_TRUE(mapUnderTest.isTilePassable(PosX {y}, PosY {x}));
             EXPECT_FALSE(mapUnderTest.hasTilePoints(PosX {y}, PosY {x}));

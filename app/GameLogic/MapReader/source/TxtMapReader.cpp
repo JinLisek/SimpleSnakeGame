@@ -21,13 +21,13 @@ Map readMapFromFile(const std::string& filePath) //TODO: REFACTOR!!!!!!!
     FileReader file{filePath};
     std::string fileContent = file.getFileContent();
     
-    const size_t mapWidth = findNumberInFirstLineAndEraseTheLine(fileContent); //TODO: add exceptions when incorrect map size
-    const size_t mapHeight = findNumberInFirstLineAndEraseTheLine(fileContent);
+    const unsigned mapWidth = findNumberInFirstLineAndEraseTheLine(fileContent); //TODO: add exceptions when incorrect map size
+    const unsigned mapHeight = findNumberInFirstLineAndEraseTheLine(fileContent);
 
     auto map = Map{PosX{mapWidth}, PosY{mapHeight}};
 
-    size_t vertical = 0;
-    size_t horizontal = 0;
+    unsigned vertical = 0;
+    unsigned horizontal = 0;
 
     for(const auto inputChar : fileContent)
     {
@@ -51,11 +51,41 @@ Map readMapFromFile(const std::string& filePath) //TODO: REFACTOR!!!!!!!
     return std::move(map);
 }
 
+Snake readSnakeFromFile(const std::string& filePath) //TODO: remove duplication with above
+{
+        FileReader file{filePath};
+    std::string fileContent = file.getFileContent();
+    
+    const unsigned mapWidth = findNumberInFirstLineAndEraseTheLine(fileContent); //TODO: add exceptions when incorrect map size
+    const unsigned mapHeight = findNumberInFirstLineAndEraseTheLine(fileContent);
+
+    unsigned vertical = 0;
+    unsigned horizontal = 0;
+
+    for(const auto inputChar : fileContent)
+    {
+        if(inputChar == 'H') //TODO: refactor to factory or something?
+        {
+            break;
+        }
+        else if(inputChar == '\n')
+        {
+            ++vertical;
+            horizontal = -1;
+        }
+
+        ++horizontal;
+    }
+
+    return Snake{PosX{horizontal}, PosY{vertical}};
+}
+
 }
 
 TxtMapReader::TxtMapReader(const std::string& filePath) :
     _filePath {filePath},
-    _map{readMapFromFile(_filePath)}
+    _map{readMapFromFile(_filePath)},
+    _snake{readSnakeFromFile(_filePath)}
 {
 }
 

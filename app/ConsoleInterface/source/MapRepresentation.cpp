@@ -14,9 +14,9 @@ std::string MapRepresentation::draw() const
 {
     std::string representation {};
 
-    for(size_t x = 0; x < _map.getNumOfRows(); ++x)
+    for(unsigned x = 0; x < _map.getNumOfRows(); ++x)
     {
-        for(size_t y = 0; y < _map.getNumOfColumns(); ++y)
+        for(unsigned y = 0; y < _map.getNumOfColumns(); ++y)
         {
             const auto tile = _map.getTileAt(PosX {y}, PosY {x});
             const auto& tileRepresentation = tileRepresentationFactory.createTileRepresentation(tile);

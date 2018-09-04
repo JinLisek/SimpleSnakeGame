@@ -1,7 +1,12 @@
 #include <utility>
 #include "Snake.hpp"
 
-std::pair<unsigned, unsigned> Snake::getPosition() const
+Snake::Snake(const PosX& posX, const PosY& posY) :
+    _position {posX.get(), posY.get()}
 {
-    return {3, 3};
+}
+
+Point Snake::getPosition() const
+{
+    return _position;
 }

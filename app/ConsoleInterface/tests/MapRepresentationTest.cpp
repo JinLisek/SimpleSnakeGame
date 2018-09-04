@@ -37,9 +37,9 @@ public:
     {
         std::string result {};
 
-        for(size_t x = 0; x < MAP_HEIGHT; ++x)
+        for(unsigned x = 0; x < MAP_HEIGHT; ++x)
         {
-            for(size_t y = 0; y < MAP_WIDTH; ++y)
+            for(unsigned y = 0; y < MAP_WIDTH; ++y)
             {
                 result += mapArray[x][y];
             }
@@ -49,6 +49,11 @@ public:
         return result;
     }
 };
+
+constexpr unsigned MapRepresentationTest::TILE_HEIGHT;
+constexpr unsigned MapRepresentationTest::TILE_WIDTH;
+constexpr unsigned MapRepresentationTest::MAP_HEIGHT;
+constexpr unsigned MapRepresentationTest::MAP_WIDTH;
 
 TEST_F(MapRepresentationTest, CheckThatMapRepresentationForDefaultMapGivesRepresentationWithOnlyGreenDots)
 {

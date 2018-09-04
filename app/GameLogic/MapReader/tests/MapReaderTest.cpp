@@ -24,9 +24,9 @@ public:
 
     void checkTilesInGeneratedMap(const Map& map, const Tile tiles[MAP_HEIGHT][MAP_WIDTH])
     {
-        for(size_t x = 0; x < MAP_HEIGHT; ++x)
+        for(unsigned x = 0; x < MAP_HEIGHT; ++x)
         {
-            for(size_t y = 0; y < MAP_WIDTH; ++y)
+            for(unsigned y = 0; y < MAP_WIDTH; ++y)
             {
                 EXPECT_EQ(tiles[x][y].isPassable(), map.isTilePassable(PosX{y}, PosY{x}));
                 EXPECT_EQ(tiles[x][y].hasPoints(), map.hasTilePoints(PosX{y}, PosY{x}));
@@ -80,8 +80,8 @@ TEST_F(MapReaderTest, CheckThatMapReaderReadsMapWithSnake)
     TxtMapReader reader{"test_input/3x3MapWithSnakeInTheCenter.txt"};
     auto snake =  reader.readSnake();
 
-    EXPECT_EQ(3, snake->getPosition().first);
-    EXPECT_EQ(3, snake->getPosition().second);
+    EXPECT_EQ(1, snake->getPosition().x);
+    EXPECT_EQ(1, snake->getPosition().y);
 }
 
 TEST_F(MapReaderTest, CheckThatMapReaderReadsBiggerEmptyMap)
