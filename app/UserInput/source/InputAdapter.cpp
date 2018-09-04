@@ -19,18 +19,23 @@ void userInputLoop(const InputAdapter& inputAdapter)
 
 }
 
+InputAdapter::InputAdapter(IPlayerController& playerController) :
+    _playerController {playerController}
+{
+}
+
 InputAdapter::~InputAdapter()
 {
-    if(inputThread.joinable())
-        inputThread.join();
+    if(_inputThread.joinable())
+        _inputThread.join();
 }
 
 void InputAdapter::beginWaitingOnInput()
 {
     _isWaitingForInput = true;
 
-    if(not inputThread.joinable())
-        inputThread = std::thread{userInputLoop, std::ref(*this)};
+    if(not _inputThread.joinable())
+        _inputThread = std::thread{userInputLoop, std::ref(*this)};
 }
 
 void InputAdapter::stopWaitingOnInput()
